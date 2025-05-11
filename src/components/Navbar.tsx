@@ -1,7 +1,6 @@
 // src/components/Navbar.tsx
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
@@ -9,7 +8,7 @@ export default function Navbar() {
 
   return (
     <nav className="backdrop-blur-lg bg-white/10 border-b border-gray-800">
-      <div className="container mx-auto flex justify-between items-center px-6 py-4">
+      <div className="container mx-auto flex justify-between items-center px-5 py-4">
         <Link to="/" className="flex items-center gap-2">
           {/* <QuranIcon className="h-8 w-8 text-primary" /> */}
           <motion.span 
@@ -57,12 +56,7 @@ export default function Navbar() {
 
           
 
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-            <Button className="gap-2 cursor-pointer">
-              <Sparkles className="h-5 w-5" />
-              Try Free
-            </Button>
-          </motion.div>
+        
         </div>
       </div>
     </nav>
