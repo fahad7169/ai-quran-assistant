@@ -13,7 +13,6 @@ interface SearchResult {
 }
 
 const constructPrompt = (query: string): string => {
-  console.log('Constructing prompt for query:', query);
   const prompt = `You are a Quranic search assistant. Please help find relevant verses and provide context for the following query: "${query}"
 
 Please provide the response in the following JSON format, ensuring all strings are properly escaped:
@@ -35,21 +34,21 @@ Important:
 3. Keep tafsir brief and concise
 4. Limit to 3-5 most relevant results
 5. If the query is unclear or not related to the Quran, return an empty results array
+6. Use accurate Arabic text and translations from reliable sources like Quran.com
+7. For translations, prefer the Saheeh International translation when available
+8. For tafsir, use reliable sources like Tafsir Ibn Kathir or Tafsir al-Tabari
 
 Focus on:
-1. Finding the most relevant verses
-2. Providing accurate translations
-3. Including brief tafsir/context
+1. Finding the most relevant verses from reliable sources
+2. Providing accurate translations from Quran.com or Saheeh International
+3. Including brief tafsir/context from authentic sources
 4. Ensuring valid JSON format`;
 
-  console.log('Constructed prompt:', prompt);
   return prompt;
 };
 
 export const searchQuran = async (query: string): Promise<SearchResult[]> => {
-  console.log('Starting Quran search for query:', query);
   try {
-    console.log('Making API request to OpenAI...');
     const response = await axios.post(
       OPENAI_API_URL,
       {
@@ -75,11 +74,8 @@ export const searchQuran = async (query: string): Promise<SearchResult[]> => {
       }
     );
 
-    console.log('Received response from OpenAI');
     const content = response.data.choices[0].message.content;
-    console.log('Raw response content:', content);
     
-    console.log('Parsing JSON response...');
     let parsedContent;
     try {
       parsedContent = JSON.parse(content);
@@ -94,7 +90,6 @@ export const searchQuran = async (query: string): Promise<SearchResult[]> => {
       throw new Error('Invalid response structure from API. Please try again.');
     }
 
-    console.log('Mapping results...');
     const results = parsedContent.results.map((result: any, index: number) => ({
       id: index + 1,
       surah: result.surah || 'Unknown',
@@ -104,7 +99,6 @@ export const searchQuran = async (query: string): Promise<SearchResult[]> => {
       tafsir: result.tafsir || ''
     }));
     
-    console.log('Final mapped results:', results);
     return results;
   } catch (error) {
     console.error('Error searching Quran:', error);

@@ -137,8 +137,7 @@ const SurahCard = ({ surah, verse, text, translation, tafsir }: SurahCardProps) 
   };
 
   const surahNumber = getSurahNumber(surah);
-  const verseNumber = verse.split("-")[0]; // Handle ranges like "4-5" by taking first number
-
+  const verseNumber = verse.split(":")[1] || verse;
 
   return (
     <motion.div 
@@ -198,7 +197,7 @@ const SurahCard = ({ surah, verse, text, translation, tafsir }: SurahCardProps) 
                 Bookmark
               </button>
             </div>
-            <span className="text-xs text-gray-500">4.8k saves</span>
+          
           </div>
         </CardContent>
       </Card>

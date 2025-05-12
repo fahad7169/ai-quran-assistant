@@ -17,6 +17,58 @@ interface SearchResult {
   tafsir?: string;
 }
 
+const todayVerses = [
+  {
+    "id": 1,
+    "surah": "Aal Imran",
+    "verse": "3:26",
+    "text": "قُلِ اللَّهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَن تَشَاءُ وَتَنزِعُ الْمُلْكَ مِمَّن تَشَاءُ ۖ وَتُعِزُّ مَن تَشَاءُ وَتُذِلُّ مَن تَشَاءُ ۖ بِيَدِكَ الْخَيْرُ ۖ إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+    "translation": "Say, 'O Allah, Owner of Sovereignty, You give sovereignty to whom You will and You take sovereignty away from whom You will. You honor whom You will and You humble whom You will. In Your hand is [all] good. Indeed, You are over all things competent.'",
+    "tafsir": "This verse acknowledges Allah's absolute authority over all dominion and power. It emphasizes that honor and disgrace are in His hands, and He bestows them upon whom He wills. This serves as a reminder of Allah's omnipotence and the transient nature of worldly power."
+  },  
+  {
+    id: 2,
+    surah: "Al-Mulk",
+    verse: "67:3-4",
+    text: "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَـٰنِ مِن تَفَاوُتٍ ۖ فَارْجِعِ الْبَصَرَ هَلْ تَرَىٰ مِن فُطُورٍ، ثُمَّ ارْجِعِ الْبَصَرَ كَرَّتَيْنِ يَنقَلِبْ إِلَيْكَ الْبَصَرُ خَاسِئًا وَهُوَ حَسِيرٌ",
+    translation: "[He] who created seven heavens in layers. You do not see any in the creation of the Most Merciful any inconsistency. So return your vision to the sky, do you see any breaks? Then return your vision twice again. Your vision will return to you humbled while it is fatigued.",
+    tafsir: "A powerful invitation to ponder over the flawless design of the universe — proving Allah’s perfection."
+  },
+  {
+    id: 3,
+    surah: "Al-Baqarah",
+    verse: "2:2",
+    text: "ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
+    translation: "This is the Book about which there is no doubt, a guidance for those conscious of Allah.",
+    tafsir: "Declares the Quran as the ultimate, doubt-free source of guidance for the God-conscious."
+  },
+  {
+    id: 4,
+    surah: "Adh-Dhariyat",
+    verse: "51:56",
+    text: "وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ",
+    translation: "And I did not create the jinn and mankind except to worship Me.",
+    tafsir: "Defines the ultimate purpose of creation — worshiping and submitting to Allah."
+  },
+  {
+    id: 5,
+    surah: "Fussilat",
+    verse: "41:53",
+    text: "سَنُرِيهِمْ آيَاتِنَا فِي الْآفَاقِ وَفِي أَنفُسِهِمْ حَتَّىٰ يَتَبَيَّنَ لَهُمْ أَنَّهُ الْحَقُّ ۗ",
+    translation: "We will show them Our signs in the horizons and within themselves until it becomes clear to them that it is the truth.",
+    tafsir: "A prophetic declaration that science and self-reflection will confirm the truth of the Quran."
+  },
+  {
+    id: 6,
+    surah: "Al-Hadid",
+    verse: "57:4",
+    text: "وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ ۚ",
+    translation: "And He is with you wherever you are.",
+    tafsir: "A deeply comforting verse reminding us that Allah’s presence is constant and everywhere."
+  }
+];
+
+
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -181,22 +233,33 @@ const Home = () => {
         </AnimatePresence>
       </section>
 
-      {/* Recent Findings */}
+      {/* Today's Verses */}
       <section className="space-y-8">
-        <h2 className="text-3xl font-bold text-primary">Featured Verses</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-3xl font-bold text-primary">Today's Verses</h2>
+          <p className="text-sm text-gray-400">
+            {new Date().toLocaleDateString('en-US', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </p>
+        </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => (
+          {todayVerses.map((verse, i) => (
             <motion.div
-              key={i}
+              key={verse.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <SurahCard 
-                surah="Al-Fatiha"
-                verse="1"
-                text="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
-                translation="In the name of Allah, the Entirely Merciful, the Especially Merciful."
+              <SurahCard
+                surah={verse.surah}
+                verse={verse.verse}
+                text={verse.text}
+                translation={verse.translation}
+                tafsir={verse.tafsir}
               />
             </motion.div>
           ))}
