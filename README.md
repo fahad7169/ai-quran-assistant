@@ -29,7 +29,7 @@ Before you begin, ensure you have the following installed:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/quran-ai-assistant.git
+git clone https://github.com/fahad7169/ai-quran-assistant.git
 cd quran-ai-assistant
 ```
 
